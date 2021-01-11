@@ -57,9 +57,23 @@
 
     <!-- js-files -->
     <!-- jquery -->
-    <script src="js/jquery-2.2.3.min.js"></script>
-    <!-- //jquery -->
-    <!-- nav smooth scroll -->
+    <script src="~/js/jquery-2.2.3.min.js"></script>
+<!-- //jquery -->
+
+<script type="text/javascript">  
+    $(function() {
+        var loginElements = $('#loginModal');
+        $('button[data-toggle="modal"]').click(function(event) {
+            var url = $(this).data('url');
+            var decodeUrl = decodeURIComponent(url);
+            $.get(decodeUrl).done(function(data) {
+                loginElements.html(data);
+                loginElements.find('.modal').modal('show');
+            })
+        })
+    })
+</script> 
+<!-- nav smooth scroll -->
     <script>
         $(document).ready(function () {
             $(".dropdown").hover(
@@ -76,7 +90,7 @@
     </script>
     <!-- //nav smooth scroll -->
     <!-- cart-js -->
-    <script src="js/minicart.js"></script>
+    <script src="~/js/minicart.js"></script>
     <script>
         paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
 
@@ -117,14 +131,14 @@
     </script>
     <!-- //password-script -->
     <!-- scroll seller -->
-    <script src="js/scroll.js"></script>
+    <script src="~/js/scroll.js"></script>
     <!-- //scroll seller -->
     <!-- smoothscroll -->
-    <script src="js/SmoothScroll.min.js"></script>
+    <script src="~/js/SmoothScroll.min.js"></script>
     <!-- //smoothscroll -->
     <!-- start-smooth-scrolling -->
-    <script src="js/move-top.js"></script>
-    <script src="js/easing.js"></script>
+    <script src="~/js/move-top.js"></script>
+    <script src="~/js/easing.js"></script>
     <script>
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {
