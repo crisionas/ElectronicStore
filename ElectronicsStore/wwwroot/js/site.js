@@ -48,8 +48,8 @@
 
                 $.get(url).done(function (data) {
                     debugger;
-                    $('#modal-create-edit-user').find(".modal-dialog").html(data);
-                    $('#modal-create-edit-user > .modal', data).modal("show");
+                    $('#registerModal').find(".modal-dialog").html(data);
+                    $('#registerModal > .modal', data).modal("show");
                 });
 
             }

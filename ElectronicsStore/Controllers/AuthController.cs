@@ -9,10 +9,14 @@ namespace ElectronicsStore.Controllers
 {
     public class AuthController : Controller
     {
-        [HttpGet]
         public IActionResult Login()
         {
             return PartialView("_LoginPartial");
+        }
+        
+        public IActionResult Register()
+        {
+            return PartialView("_RegisterPartial");
         }
         public ActionResult CreateEdit(int? id)
         {
