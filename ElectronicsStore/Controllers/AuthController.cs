@@ -9,37 +9,25 @@ namespace ElectronicsStore.Controllers
 {
     public class AuthController : Controller
     {
-        public IActionResult Login()
+        public ActionResult Login()
         {
             return PartialView("_LoginPartial");
         }
         
-        public IActionResult Register()
+        public ActionResult Register()
         {
             return PartialView("_RegisterPartial");
         }
-        public ActionResult CreateEdit(int? id)
-        {
-            UserDto model = new UserDto();
-            model.IsActive = true;
-            if (id.HasValue)
-            {
-                //Write your get user details code here.  
-            }
-            return PartialView("_CreateEdit", model);
 
-        }
-        [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult CreateEdit(UserDto model)
+        public ActionResult Register(RegisterModel model)
         {
-            //validate user  
             if (!ModelState.IsValid)
-                return PartialView("_CreateEdit", model);
+            {
+                return View("Register", model);
+            }
+            return RedirectToAction("Index", "Home");
 
-
-            //save user into database   
-            return RedirectToAction("Index");
         }
     }
 }

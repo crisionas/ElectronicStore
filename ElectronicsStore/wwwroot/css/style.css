@@ -1926,6 +1926,18 @@ input[type="checkbox"] {
 	cursor: pointer;
 }
 
+select.form-control1.option-w3ls {
+    width: 100%;
+    padding: 1em 1em 1em 1em;
+    font-size: 0.8em;
+    margin: 100px auto;
+    outline: none;
+    color: #212121;
+    border: none;
+    border: 1px solid #ccc;
+    letter-spacing: 1px;
+    text-align: left;
+}
 select.form-control.option-w3ls {
     width: 100%;
     padding: 1em 1em 1em 1em;

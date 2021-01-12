@@ -1,4 +1,5 @@
-﻿<!-- register -->
+﻿@model RegisterModel
+<!-- register -->
 
 <div class="modal-content">
     <div class="modal-header">
@@ -8,22 +9,29 @@
         </button>
     </div>
     <div class="modal-body">
-        <form action="#" method="post">
+
+        <form asp-action="Register" asp-controller="Auth" method="post">
+            @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
             <div class="form-group">
                 <label class="col-form-label">Your Name</label>
-                <input type="text" class="form-control" placeholder=" " name="Name" required="">
+                <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Name" name="Name" required="">
             </div>
             <div class="form-group">
+                <label class="col-form-label">Birth Date</label>
+                <input asp-for="@Model.Birth_date" type="date" class="form-control" placeholder="Birth date" name="Birth_date" required="">
+                </div>
+            <div class="form-group">
                 <label class="col-form-label">Email</label>
-                <input type="email" class="form-control" placeholder=" " name="Email" required="">
+                <input asp-for="@Model.Email" type="email" class="form-control" placeholder="Email" name="Email" required="">
             </div>
             <div class="form-group">
                 <label class="col-form-label">Password</label>
-                <input type="password" class="form-control" placeholder=" " name="Password" id="password1" required="">
+                <input asp-for="@Model.Password" type="password" class="form-control" placeholder="Password" name="Password" id="password1" required="">
             </div>
             <div class="form-group">
                 <label class="col-form-label">Confirm Password</label>
-                <input type="password" class="form-control" placeholder=" " name="Confirm Password" id="password2" required="">
+                <input asp-for="@Model.ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" name="ConfirmPassword" id="password2" required="">
             </div>
             <div class="right-w3l">
                 <input type="submit" class="form-control" value="Register">
@@ -31,7 +39,7 @@
             <div class="sub-w3l">
                 <div class="custom-control custom-checkbox mr-sm-2">
                     <input type="checkbox" class="custom-control-input" id="customControlAutosizing2">
-                    <label class="custom-control-label" for="customControlAutosizing2">I Accept to the Terms & Conditions</label>
+                    <label class="col-form-label" for="customControlAutosizing2">I Accept to the Terms & Conditions</label>
                 </div>
             </div>
         </form>

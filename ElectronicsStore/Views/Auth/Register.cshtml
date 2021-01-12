@@ -1,0 +1,109 @@
+﻿@model RegisterModel
+@{
+    ViewData["Title"] = "Login";
+}
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/Login/css/main.css">
+
+<section class="u-clearfix u-section-1" id="sec-0d74">
+    <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
+            <div class="limiter">
+                <div class="container-login100">
+                    <div class="wrap-login100  p-b-30">
+                        <center><img src="~/Index/images/RVTLogo.png" alt=""></center>
+                        <form asp-action="Register" asp-controller="Auth" method="post"  class="login100-form validate-form">
+                            <span class="login100-form-title p-b-20">
+                                Logare
+                            </span> 
+                            @Html.ValidationSummary(true)
+                            @Html.AntiForgeryToken()
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="IDNP este necesar">
+                                <input asp-for="@Model.Name" type="text" class="input100" placeholder="Name" name="Name" required="">
+                                @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                                <input asp-for="@Model.Birth_date" type="date" class="input100" placeholder="Birth date" name="Birth_date" required="">
+                                @Html.ValidationMessageFor(m => m.Birth_date, null, new { @class = "text-danger" })
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+                            
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                                <input asp-for="@Model.Email" type="email" class="input100" placeholder="Email" name="Email" required="">
+                                @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+                            
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                                <input asp-for="@Model.Password" type="password" class="input100" placeholder="Password" name="Password" id="password1" required="">
+                                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+                            
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                                <input asp-for="@Model.ConfirmPassword" type="password" class="input100" placeholder="Confirm password" name="ConfirmPassword" id="password1" required="">
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "text-danger" })
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+
+                            <div class="container-login100-form-btn p-t-10">
+                                <button class="login100-form-btn" value="Register">
+
+                                    Registration
+                                </button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel" align="center"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="aModalLabel">Message</h4>
+                        </div>
+                        <div class="modal-body">
+                            @ViewBag.Message
+                        </div>
+                        <div class="modal-footer">
+                            <button id="myButton" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        
+    </div>
+</section>
+
+<script src="~/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/Login/vendor/bootstrap/js/popper.js"></script>
+<script src="~/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Login/vendor/select2/select2.min.js"></script>
+<script src="~/Login/js/main.js"></script>
