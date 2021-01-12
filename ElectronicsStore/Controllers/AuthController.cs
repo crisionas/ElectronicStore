@@ -13,7 +13,18 @@ namespace ElectronicsStore.Controllers
         {
             return PartialView("_LoginPartial");
         }
-        
+
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Login", model);
+            }
+            return RedirectToAction("Index", "Home");
+
+        }
+
         public ActionResult Register()
         {
             return PartialView("_RegisterPartial");

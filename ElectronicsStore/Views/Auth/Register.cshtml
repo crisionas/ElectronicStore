@@ -1,6 +1,6 @@
 ﻿@model RegisterModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Register";
 }
 <link rel="stylesheet" type="text/css" href="~/Login/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="~/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -16,10 +16,9 @@
             <div class="limiter">
                 <div class="container-login100">
                     <div class="wrap-login100  p-b-30">
-                        <center><img src="~/Index/images/RVTLogo.png" alt=""></center>
                         <form asp-action="Register" asp-controller="Auth" method="post"  class="login100-form validate-form">
                             <span class="login100-form-title p-b-20">
-                                Logare
+                                Registration
                             </span> 
                             @Html.ValidationSummary(true)
                             @Html.AntiForgeryToken()

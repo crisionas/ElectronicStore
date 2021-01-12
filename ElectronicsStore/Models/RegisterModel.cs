@@ -31,6 +31,7 @@ namespace ElectronicsStore.Models
         [Compare(nameof(Password), ErrorMessage = "Passwords are not the same")]
         public string ConfirmPassword { get; set; }
 
+
         public class MinAgeAttribute : ValidationAttribute
         {
 

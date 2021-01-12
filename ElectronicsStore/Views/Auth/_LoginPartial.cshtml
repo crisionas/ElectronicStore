@@ -1,4 +1,5 @@
-﻿<!-- log in -->
+﻿@model LoginModel
+<!-- log in -->
 
 <div class="modal-content">
     <div class="modal-header">
@@ -8,23 +9,17 @@
         </button>
     </div>
     <div class="modal-body">
-        <form action="#" method="post">
+        <form asp-controller="Auth" asp-action="Login" method="post">
             <div class="form-group">
-                <label class="col-form-label">Username</label>
-                <input type="text" class="form-control" placeholder=" " name="Name" required="">
+                <label class="col-form-label">Email</label>
+                <input asp-for="@Model.Email" type="email" class="form-control" placeholder="Email" name="Email" required="">
             </div>
             <div class="form-group">
                 <label class="col-form-label">Password</label>
-                <input type="password" class="form-control" placeholder=" " name="Password" required="">
+                <input asp-for="@Model.Password" type="password" class="form-control" placeholder="Password" name="Password" id="password1" required="">
             </div>
             <div class="right-w3l">
                 <input type="submit" class="form-control" value="Log in">
-            </div>
-            <div class="sub-w3l">
-                <div class="custom-control custom-checkbox mr-sm-2">
-                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                    <label class="custom-control-label" for="customControlAutosizing">Remember me?</label>
-                </div>
             </div>
         </form>
     </div>
