@@ -20,7 +20,7 @@
                             <span class="login100-form-title p-b-20">
                                 Registration
                             </span> 
-                            @Html.ValidationSummary(true)
+                            @Html.ValidationSummary(true,null, new { @class = "text-danger" })
                             @Html.AntiForgeryToken()
                             <div class="wrap-input100 validate-input m-b-10" data-validate="IDNP este necesar">
                                 <input asp-for="@Model.Name" type="text" class="input100" placeholder="Name" name="Name" required="">
@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="container-login100-form-btn p-t-10">
-                                <button class="login100-form-btn" value="Register">
+                                <button class="login100-form-btn" value="Register" onclick="">
 
                                     Registration
                                 </button>
@@ -78,26 +78,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel" align="center"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="aModalLabel">Message</h4>
-                        </div>
-                        <div class="modal-body">
-                            @ViewBag.Message
-                        </div>
-                        <div class="modal-footer">
-                            <button id="myButton" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        
     </div>
 </section>
 
@@ -106,3 +86,41 @@
 <script src="~/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="~/Login/vendor/select2/select2.min.js"></script>
 <script src="~/Login/js/main.js"></script>
+
+<div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel" align="center"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="aModalLabel">Message</h4>
+            </div>
+            <div class="modal-body">
+                @ViewBag.Message
+            </div>
+            <div class="modal-footer">
+                <button id="myButton" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Message != null)
+{
+
+    <script type="text/javascript">
+        $(function () {
+            $("#aModal").modal('show');
+        });
+
+    </script>
+}
+@if (ViewBag.State)
+{
+    <script>
+
+        document.getElementById("myButton").onclick = function () {
+            window.location.href = "/Home/Index";
+        };
+
+    </script>
+}

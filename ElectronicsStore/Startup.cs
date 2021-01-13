@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ES.BusinessLayer.DBModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElectronicsStore
 {
@@ -24,6 +26,7 @@ namespace ElectronicsStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<UserContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
