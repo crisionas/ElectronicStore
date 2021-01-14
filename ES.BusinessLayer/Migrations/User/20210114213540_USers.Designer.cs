@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ES.BusinessLayer.Migrations
+namespace ES.BusinessLayer.Migrations.User
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210113125834_addbirthday")]
-    partial class addbirthday
+    [Migration("20210114213540_USers")]
+    partial class USers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,9 @@ namespace ES.BusinessLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("RegisterDateTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("id");
 

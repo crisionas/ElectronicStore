@@ -18,6 +18,7 @@ namespace ES.BusinessLayer.DBModels
 
         }
         public virtual DbSet<Users> Users { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

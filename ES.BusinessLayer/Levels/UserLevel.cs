@@ -13,5 +13,10 @@ namespace ES.BusinessLayer.Levels
         {
             return RegistrationAction(model);
         }
+
+        public ULoginResponse UserLogin(ULoginData model)
+        {
+            return LoginAction(model);
+        }
     }
 }

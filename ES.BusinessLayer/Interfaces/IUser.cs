@@ -9,5 +9,7 @@ namespace ES.BusinessLayer.Interfaces
     public interface IUser
     {
         URegisterResponse UserRegister(URegisterData model);
+
+        ULoginResponse UserLogin(ULoginData model);
     }
 }

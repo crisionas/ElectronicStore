@@ -5,9 +5,11 @@ using ES.Domain.Enums;
 
 namespace ES.Domain.Models
 {
-    public class URegisterResponse
+    public class ULoginResponse
     {
         public bool Status { get; set; }
         public string Message { get; set; }
+
+        public URole Role { get; set; }
     }
 }

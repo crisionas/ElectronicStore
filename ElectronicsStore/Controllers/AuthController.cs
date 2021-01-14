@@ -3,12 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using ElectronicsStore.Models;
 using ES.BusinessLayer;
 using ES.BusinessLayer.Interfaces;
 using ES.Domain.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ElectronicsStore.Controllers
 {
@@ -29,12 +32,41 @@ namespace ElectronicsStore.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View("Login", model);
+                var config = new MapperConfiguration(cfg =>
+                    cfg.CreateMap<LoginModel, ULoginData>());
+                var mapper = new Mapper(config);
+                var data = mapper.Map<ULoginData>(model);
+                data.LoginIP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                data.LoginDate = DateTime.Now;
+                var result = user.UserLogin(data);
+                if (result.Status)
+                {
+                    var userClaims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, model.Email),
+                        new Claim(ClaimTypes.DateOfBirth, DateTime.Now.ToString()),
+                        new Claim(ClaimTypes.Role, result.Role.ToString())
+                    };
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme,"Auth","test");
+                    var authProperties = new AuthenticationProperties
+                    { 
+                        AllowRefresh = true,
+                        IsPersistent = true,
+                    };
+                    var userPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", result.Message);
+                    return View();
+                }
             }
 
-            return RedirectToAction("Index", "Home");
+            return View("Login", model);
         }
 
         public ActionResult Register()
@@ -58,7 +90,7 @@ namespace ElectronicsStore.Controllers
                 {
                     ViewBag.Message = result.Message;
                     ViewBag.State = result.Status;
-                    return View();
+                    return RedirectToAction("Index","Home");
                 }
                 else
                 {

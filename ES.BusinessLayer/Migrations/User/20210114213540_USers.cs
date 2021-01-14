@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ES.BusinessLayer.Migrations
+namespace ES.BusinessLayer.Migrations.User
 {
-    public partial class addbirthday : Migration
+    public partial class USers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,6 +17,7 @@ namespace ES.BusinessLayer.Migrations
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Birth_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    RegisterDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastIp = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     Level = table.Column<int>(type: "int", nullable: false)

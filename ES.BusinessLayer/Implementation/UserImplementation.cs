@@ -6,6 +6,7 @@ using ES.BusinessLayer.DBModels;
 using ES.Domain.Entities;
 using ES.Domain.Models;
 using ES.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace ES.BusinessLayer.Implementation
 {
@@ -41,6 +42,34 @@ namespace ES.BusinessLayer.Implementation
             }
 
             return new URegisterResponse {Status = false, Message = "????"};
+        }
+
+        internal ULoginResponse LoginAction(ULoginData model)
+        {
+            Users result;
+            var pass = LoginHelper.HashGen(model.Password);
+            using (var db = new UserContext())
+            {
+                result = db.Users.FirstOrDefault(m => m.Email == model.Email && m.Password == pass);
+            }
+            if (result == null)
+            {
+                return new ULoginResponse { Status = false, Message = "The username or password are not corrrect!" };
+            }
+
+            using (var db=new UserContext())
+            {
+                result.LastIp = model.LoginIP;
+                result.LastLogin=model.LoginDate;
+                db.Entry(result).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return new ULoginResponse
+            {
+                Status = true,
+                Role = result.Level
+            };
         }
     }
 }

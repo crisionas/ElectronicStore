@@ -20,7 +20,7 @@
                         <span class="login100-form-title p-b-20">
                             Logare
                         </span>
-                        @Html.ValidationSummary(true)
+                        @Html.ValidationSummary(true, null, new { @class = "text-danger" })
                         @Html.AntiForgeryToken()
                         <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
                             <input asp-for="@Model.Email" type="email" class="input100" placeholder="Email" name="Email" required="">
