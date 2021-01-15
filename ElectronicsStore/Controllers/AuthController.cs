@@ -12,6 +12,7 @@ using ES.BusinessLayer.Interfaces;
 using ES.Domain.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ElectronicsStore.Controllers
 {
@@ -24,12 +25,14 @@ namespace ElectronicsStore.Controllers
             user = bl.GetUserBL();
         }
     
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return PartialView("_LoginPartial");
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -45,18 +48,19 @@ namespace ElectronicsStore.Controllers
                 {
                     var userClaims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Email, model.Email),
+                        new Claim(ClaimTypes.Name,model.Email),
                         new Claim(ClaimTypes.DateOfBirth, DateTime.Now.ToString()),
                         new Claim(ClaimTypes.Role, result.Role.ToString())
                     };
-                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme,"Auth","test");
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
                     var authProperties = new AuthenticationProperties
                     { 
                         AllowRefresh = true,
-                        IsPersistent = true,
+                        IsPersistent = true
                     };
                     var userPrincipal = new ClaimsPrincipal(claimsIdentity);
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
+                    var test = User.Identity.Name;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -100,6 +104,12 @@ namespace ElectronicsStore.Controllers
             }
 
             return View("Register", model);
+        }
+
+        public ActionResult SignOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

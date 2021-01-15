@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ElectronicsStore.Controllers
 {
@@ -17,7 +18,8 @@ namespace ElectronicsStore.Controllers
         {
             _logger = logger;
         }
-
+        [AllowAnonymous]
+        [Authorize]
         public IActionResult Index()
         {
             return View();

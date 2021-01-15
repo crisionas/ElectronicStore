@@ -22,7 +22,7 @@ namespace ES.BusinessLayer.Implementation
                     return new URegisterResponse
                     {
                         Status = false,
-                        Message = "This username exists."
+                        Message = "This email exists."
                     };
                 }
                 else
