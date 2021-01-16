@@ -48,11 +48,11 @@ namespace ElectronicsStore.Controllers
                 {
                     var userClaims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name,model.Email),
+                        new Claim(ClaimTypes.Email,model.Email),
                         new Claim(ClaimTypes.DateOfBirth, DateTime.Now.ToString()),
                         new Claim(ClaimTypes.Role, result.Role.ToString())
                     };
-                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Email, ClaimTypes.Role);
                     var authProperties = new AuthenticationProperties
                     { 
                         AllowRefresh = true,
@@ -60,7 +60,6 @@ namespace ElectronicsStore.Controllers
                     };
                     var userPrincipal = new ClaimsPrincipal(claimsIdentity);
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
-                    var test = User.Identity.Name;
                     return RedirectToAction("Index", "Home");
                 }
                 else
