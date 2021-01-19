@@ -4,16 +4,14 @@ using ES.BusinessLayer.DBModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ES.BusinessLayer.Migrations
+namespace ES.BusinessLayer.Migrations.Shop
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210116155737_Products")]
-    partial class Products
+    partial class ShopContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,6 +89,15 @@ namespace ES.BusinessLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<byte[]>("ProductImage1")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ProductImage2")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ProductImage3")
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("ID");
 
@@ -172,6 +179,15 @@ namespace ES.BusinessLayer.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<byte[]>("ProductImage1")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ProductImage2")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ProductImage3")
+                        .HasColumnType("varbinary(max)");
+
                     b.HasKey("ID");
 
                     b.HasIndex("BrandID");
@@ -187,7 +203,7 @@ namespace ES.BusinessLayer.Migrations
                         .WithMany()
                         .HasForeignKey("BrandId");
 
-                    b.HasOne("ES.Domain.Entities.ElectroCategories", "Category")
+                    b.HasOne("ES.Domain.Entities.ApplianceCategories", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
 

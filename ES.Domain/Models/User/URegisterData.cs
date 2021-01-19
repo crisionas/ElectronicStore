@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ES.Domain.Models
+namespace ES.Domain.Models.User
 {
     public class URegisterData
     {

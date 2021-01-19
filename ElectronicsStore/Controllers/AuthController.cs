@@ -9,7 +9,7 @@ using AutoMapper;
 using ElectronicsStore.Models;
 using ES.BusinessLayer;
 using ES.BusinessLayer.Interfaces;
-using ES.Domain.Models;
+using ES.Domain.Models.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;

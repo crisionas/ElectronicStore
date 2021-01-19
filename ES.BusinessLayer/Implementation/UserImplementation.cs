@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ES.BusinessLayer.DBModels;
 using ES.Domain.Entities;
-using ES.Domain.Models;
+using ES.Domain.Models.User;
 using ES.Helpers;
 using Microsoft.EntityFrameworkCore;
 

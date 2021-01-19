@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ES.BusinessLayer.Migrations.User
+namespace ES.BusinessLayer.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210114213540_USers")]
-    partial class USers
+    [Migration("20210117144122_User")]
+    partial class User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

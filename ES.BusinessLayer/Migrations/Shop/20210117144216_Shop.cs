@@ -1,17 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ES.BusinessLayer.Migrations
+namespace ES.BusinessLayer.Migrations.Shop
 {
-    public partial class Products : Migration
+    public partial class Shop : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
             migrationBuilder.CreateTable(
                 name: "ApplianceBrands",
                 columns: table => new
@@ -76,7 +71,10 @@ namespace ES.BusinessLayer.Migrations
                     Details = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     Mark = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    ProductImage1 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ProductImage2 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ProductImage3 = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,9 +86,9 @@ namespace ES.BusinessLayer.Migrations
                         principalColumn: "BrandId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ApplianceProducts_ElectroCategories_CategoryId",
+                        name: "FK_ApplianceProducts_ApplianceCategories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "ElectroCategories",
+                        principalTable: "ApplianceCategories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -107,7 +105,10 @@ namespace ES.BusinessLayer.Migrations
                     Details = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     Mark = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    ProductImage1 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ProductImage2 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ProductImage3 = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,9 +151,6 @@ namespace ES.BusinessLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ApplianceCategories");
-
-            migrationBuilder.DropTable(
                 name: "ApplianceProducts");
 
             migrationBuilder.DropTable(
@@ -162,48 +160,13 @@ namespace ES.BusinessLayer.Migrations
                 name: "ApplianceBrands");
 
             migrationBuilder.DropTable(
+                name: "ApplianceCategories");
+
+            migrationBuilder.DropTable(
                 name: "ElectroBrands");
 
             migrationBuilder.DropTable(
                 name: "ElectroCategories");
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products",
-                column: "CategoryId");
         }
     }
 }

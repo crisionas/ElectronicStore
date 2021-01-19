@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ES.Domain.Enums;
 
-namespace ES.Domain.Models
+namespace ES.Domain.Models.User
 {
     public class ULoginData
     {

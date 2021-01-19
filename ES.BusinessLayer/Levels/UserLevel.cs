@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ES.BusinessLayer.Implementation;
 using ES.BusinessLayer.Interfaces;
-using ES.Domain.Models;
+using ES.Domain.Models.User;
 
 namespace ES.BusinessLayer.Levels
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ES.BusinessLayer.Migrations.User
+namespace ES.BusinessLayer.Migrations
 {
-    public partial class USers : Migration
+    public partial class User : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

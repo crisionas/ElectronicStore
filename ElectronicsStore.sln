@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ES.BusinessLayer", "ES.Busi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ES.Domain", "ES.Domain\ES.Domain.csproj", "{CD4C1EEB-8487-42C9-BD01-412C37BFFD0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ES.Helpers", "ES.Helpers\ES.Helpers.csproj", "{261FDC6D-92DC-4C3C-96C2-34E78CCF5C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ES.Helpers", "ES.Helpers\ES.Helpers.csproj", "{261FDC6D-92DC-4C3C-96C2-34E78CCF5C83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
