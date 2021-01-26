@@ -7,16 +7,46 @@ using System.Threading.Tasks;
 using ElectronicsStore.Models;
 using ES.BusinessLayer.DBModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.WebEncoders.Testing;
 
 namespace ElectronicsStore.Controllers
 {
     public class ShopController : Controller
     {
-        [HttpGet]
         [AllowAnonymous]
-        public IActionResult Electronic()
+        public ActionResult Electronic()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult AddProduct()
+        {
+
+            try
+            {
+                using (var db = new ShopContext())
+                {
+                    ViewBag.ApplianceCategories = db.ApplianceCategories.ToList();
+                    ViewBag.ElectroCategories= db.ElectroCategories.ToList();
+                    ViewBag.ElectroBrand = db.ElectroBrands.ToList();
+                    ViewBag.ApplianceBrand = db.ApplianceBrands.ToList();
+
+                }
+                
+            }
+            catch(Exception e)
+            { }
+            
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddProduct(AddProdViewModel model)
+        {
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]

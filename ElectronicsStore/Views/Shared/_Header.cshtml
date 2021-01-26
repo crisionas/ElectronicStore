@@ -1,6 +1,5 @@
 ﻿@using System.Security.Claims
 @using System.Security.Cryptography.X509Certificates
-@model LoginModel
 <!-- top-header -->
 <div class="agile-main-top">
     <div class="container-fluid">
@@ -34,21 +33,26 @@
                     }
                     else
                     {
-                        <li class="text-center border-right text-white">
-
-                            <!--Modal Popup LOGIN-->
-                            <a class="popup" data-url="Auth/Login" data-toggle="modal" data-target="#loginModal" id="UserModel" class="text-white">
-                                <i class="fas fa-sign-in-alt mr-2"></i> Log In
-                            </a>
-                            <partial name="_Modal" />
-                        </li>
-                        <li class="text-center border-right text-white">
-                            <!--Modal Popup REGIST-->
-                            <a class="popup" data-url="Auth/Register" data-toggle="modal" data-target="#registerModal" id="UserModel" class="text-white">
-                                <i class="fas fa-sign-in-alt mr-2"></i> Register
-                            </a>
-                            <partial name="_Modal" />
-                        </li>
+                <li class="text-center border-right text-white">
+                    <a href="@Url.ActionLink("Login","Auth")" class="text-white">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Log In
+                    </a>
+                    @*<!--Modal Popup LOGIN-->
+        <a class="popup" href="@Url.ActionLink("Login","Auth")" data-url="Auth/Login" data-toggle="modal" data-target="#loginModal" id="UserModel" class="text-white">
+            <i class="fas fa-sign-in-alt mr-2"></i> Log In
+        </a>
+        <partial name="_Modal" />*@
+                </li>
+                <li class="text-center border-right text-white">
+                    <a href="@Url.ActionLink("Register","Auth")" class="text-white">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Register
+                    </a>
+                    @*<!--Modal Popup REGIST-->
+        <a href="@Url.ActionLink("Register", "Auth")"  class="text-white">
+            <i class="fas fa-sign-in-alt mr-2"></i> Register
+        </a>
+        <partial name="_Modal" />*@
+                </li>
                     }
                 </ul>
                 <!-- //header lists -->

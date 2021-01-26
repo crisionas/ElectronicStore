@@ -1,0 +1,219 @@
+﻿@model AddProdViewModel
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100  p-b-10">
+            <span class="login100-form-title p-b-20">
+                Add a product
+            </span>
+                <div class="btn-toolbar login100-form-title p-b-20">
+                    <button type="button" id="electrobtn" onclick="showElectric()" style='margin-right: 16px' id="btnSubmit" class="btn btn-light btn-lg">Electronics</button>
+                    <button type="button" id="applianceBtn" style='margin-right: 16px' id="btnCancel" class="btn btn-light btn-lg">Appliance</button>
+                </div>
+            <form id="formAppliance" style="display: none" asp-action="AddProduct" asp-controller="Shop" method="post" class="login100-form validate-form">
+                <span class="login100-form-title p-b-20">
+                    Appliance
+                </span>
+
+                @Html.ValidationSummary(true, null, new {@class = "text-danger"})
+                @Html.AntiForgeryToken()
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.ApplianceCategories, "CategoryId", "Name"), new {@onchange = "BindTextBoxValue(this.value)", @class = "input100", style = "color: slategrey"})
+                    @Html.ValidationMessageFor(m => m.Category, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    @Html.DropDownListFor(model => model.Brand, new SelectList(ViewBag.ApplianceBrand, "BrandId", "Name"), new {@onchange = "BindTextBoxValue(this.value)", @class = "input100", style = "color: slategrey"})
+                    @Html.ValidationMessageFor(m => m.Brand, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Mark" type="text" class="input100" placeholder="Mark" name="Mark" required="">
+                    @Html.ValidationMessageFor(m => m.Mark, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Details" type="text" class="input100" placeholder="Details" name="Details" required="">
+                    @Html.ValidationMessageFor(m => m.Mark, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-info-square"></"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Description" type="text" class="input100" placeholder="Description" name="Description">
+                    @Html.ValidationMessageFor(m => m.Description, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-prescription-bottle"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Price" type="text" class="input100" placeholder="Price" name="Price" required="">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-money-bill-wave"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Image1" type="file" accept="image/*" class="input100" required="">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-images"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Image2" type="file" accept="image/*" class="input100">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-images"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Image3" type="file" accept="image/*" class="input100">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-images"></i>
+                    </span>
+                </div>
+
+
+                <div class="container-login100-form-btn p-t-10">
+                    <button class="login100-form-btn" value="Login">
+
+                        Add Product
+                    </button>
+
+                </div>
+            </form>
+
+
+            <form id="formElectric" style="display: none" asp-action="AddProduct" asp-controller="Shop" method="post" class="login100-form validate-form">
+                <span class="login100-form-title p-b-20">
+                    Electronic
+                </span>
+
+                @Html.ValidationSummary(true, null, new {@class = "text-danger"})
+                @Html.AntiForgeryToken()
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.ElectroCategories, "CategoryId", "Name"), new {@onchange = "BindTextBoxValue(this.value)", @class = "input100", style = "color: slategrey"})
+                    @Html.ValidationMessageFor(m => m.Category, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10">
+                    @Html.DropDownListFor(model => model.Brand, new SelectList(ViewBag.ElectroBrand, "BrandID", "Name"), new {@onchange = "BindTextBoxValue(this.value)", @class = "input100", style = "color: slategrey"})
+                    @Html.ValidationMessageFor(m => m.Brand, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Mark" type="text" class="input100" placeholder="Mark" name="Mark" required="">
+                    @Html.ValidationMessageFor(m => m.Mark, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Details" type="text" class="input100" placeholder="Details" name="Details" required="">
+                    @Html.ValidationMessageFor(m => m.Mark, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-info-square"></"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Description" type="text" class="input100" placeholder="Description" name="Description">
+                    @Html.ValidationMessageFor(m => m.Description, null, new {@class = "text-danger"})
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-prescription-bottle"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Price" type="text" class="input100" placeholder="Price" name="Price" required="">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-money-bill-wave"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Image1" type="file" accept="image/*" class="input100" required="">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-images"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Image2" type="file" accept="image/*" class="input100">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-images"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                    <input asp-for="@Model.Image3" type="file" accept="image/*" class="input100">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-images"></i>
+                    </span>
+                </div>
+
+
+                <div class="container-login100-form-btn p-t-10">
+                    <button class="login100-form-btn" value="Login">
+
+                        Add Product
+                    </button>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var a = document.getElementById('applianceBtn');
+    var b = document.getElementById('electrobtn');
+    a.addEventListener('click',function(){
+        a.style.display="none";
+        b.style.display="none";
+        document.getElementById('formAppliance').style.display="";
+    });
+    b.addEventListener('click',function(){
+        a.style.display="none";
+        b.style.display="none";
+        document.getElementById('formElectric').style.display="";
+    });
+</script>

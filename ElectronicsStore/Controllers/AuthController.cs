@@ -26,9 +26,10 @@ namespace ElectronicsStore.Controllers
         }
     
         [AllowAnonymous]
-        public ActionResult Login()
+        public IActionResult Login()
         {
-            return PartialView("_LoginPartial");
+            //return PartialView("_LoginPartial");
+            return View();
         }
 
         [HttpPost]
@@ -71,10 +72,11 @@ namespace ElectronicsStore.Controllers
 
             return View("Login", model);
         }
-
-        public ActionResult Register()
+        [AllowAnonymous]
+        public IActionResult Register()
         {
-            return PartialView("_RegisterPartial");
+            return View();
+            //return PartialView("_RegisterPartial");
         }
 
         [HttpPost]
