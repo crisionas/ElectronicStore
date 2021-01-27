@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace ElectronicsStore.Models
+namespace ES.Domain.Models.Shop
 {
-    public class AddProdViewModel
+    public class ProductsModel
     {
         public string Category { get; set; }
         public string Brand { get; set; }
@@ -14,7 +12,9 @@ namespace ElectronicsStore.Models
         public string Details { get; set; }
         public string Price { get; set; }
         public string Description { get; set; }
-        public byte[] Images { get; set; }
+        public byte[] Image1 { get; set; }
+        public byte[] Image2 { get; set; }
+        public byte[] Image3 { get; set; }
         public string Type { get; set; }
     }
 }

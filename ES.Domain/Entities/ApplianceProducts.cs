@@ -37,11 +37,11 @@ namespace ES.Domain.Entities
         [StringLength(2000)]
         public string Description { get; set; }
 
-        public byte[] ProductImage1 { get; set; }
+        public string ProductImage1 { get; set; }
 
-        public byte[] ProductImage2 { get; set; }
+        public string ProductImage2 { get; set; }
 
-        public byte[] ProductImage3 { get; set; }
+        public string ProductImage3 { get; set; }
 
     }
 }

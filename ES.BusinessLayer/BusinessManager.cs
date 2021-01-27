@@ -13,5 +13,10 @@ namespace ES.BusinessLayer
             return new UserLevel();
         }
 
+        public IShop GetShopBL()
+        {
+            return new ShopLevel();
+        }
+
     }
 }

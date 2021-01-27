@@ -9,6 +9,9 @@ using ES.BusinessLayer.DBModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.WebEncoders.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace ElectronicsStore.Controllers
 {
@@ -21,17 +24,17 @@ namespace ElectronicsStore.Controllers
         }
 
         [Authorize]
-        public ActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
 
             try
             {
                 using (var db = new ShopContext())
                 {
-                    ViewBag.ApplianceCategories = db.ApplianceCategories.ToList();
-                    ViewBag.ElectroCategories= db.ElectroCategories.ToList();
-                    ViewBag.ElectroBrand = db.ElectroBrands.ToList();
-                    ViewBag.ApplianceBrand = db.ApplianceBrands.ToList();
+                    ViewBag.ApplianceCategories = await db.ApplianceCategories.ToListAsync();
+                    ViewBag.ElectroCategories= await db.ElectroCategories.ToListAsync();
+                    ViewBag.ElectroBrand = await db.ElectroBrands.ToListAsync();
+                    ViewBag.ApplianceBrand = await db.ApplianceBrands.ToListAsync();
 
                 }
                 
@@ -44,21 +47,39 @@ namespace ElectronicsStore.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddProduct(AddProdViewModel model)
+        public async Task<ActionResult> AddProduct(AddProdViewModel model, List<IFormFile> Images)
         {
+            var list = new List<byte[]>();
+            foreach (var item in Images)
+            {
+                if(item.Length>0)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        await item.CopyToAsync(stream);
+                        list.Add(stream.ToArray());
+                    }
+                }
+            }
+
+
+
+
             return RedirectToAction("Index","Home");
         }
+        
+
 
         [HttpGet]
         [AllowAnonymous]
-        public JsonResult GetElectronicCategories()
+        public async Task<JsonResult> GetElectronicCategories()
         {
             try
             {
                 using (var db = new ShopContext())
                 {
                     List<CategoryModel> modelCategory = new List<CategoryModel>();
-                    var categories = db.ElectroCategories.ToList();
+                    var categories = await db.ElectroCategories.ToListAsync();
                     foreach (var item in categories)
                     {
                         modelCategory.Add(new CategoryModel
@@ -79,16 +100,16 @@ namespace ElectronicsStore.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public JsonResult GetElectronicProducts()
+        public async Task<JsonResult> GetElectronicProducts()
         {
             try
             {
                 List<ElectroProductsViewModel> model = new List<ElectroProductsViewModel>();
                 using (var db = new ShopContext())
                 {
-                    var productsList = db.ElectroProducts
+                    var productsList = await db.ElectroProducts
                         .Join(db.ElectroCategories, ep => ep.Category.CategoryId, ec => ec.CategoryId, (ep, ec) => new { ep, ec })
-                        .Join(db.ElectroBrands, ep => ep.ep.Brand.BrandID, eb => eb.BrandID, (ep, eb) => new { ep, eb }).ToList();
+                        .Join(db.ElectroBrands, ep => ep.ep.Brand.BrandID, eb => eb.BrandID, (ep, eb) => new { ep, eb }).ToListAsync();
                     foreach (var item in productsList)
                     {
                         var viewModel = new ElectroProductsViewModel();
@@ -101,16 +122,16 @@ namespace ElectronicsStore.Controllers
                         viewModel.Price = item.ep.ep.Price;
                         viewModel.Description = item.ep.ep.Description;
                         if(item.ep.ep.ProductImage1 != null)
-                        viewModel.Image1 = string.Format("data:image/png;base64,{0}",
-                            Convert.ToBase64String(item.ep.ep.ProductImage1));
+                        //viewModel.Image1 = string.Format("data:image/png;base64,{0}",
+                        //    Convert.ToBase64String(item.ep.ep.ProductImage1));
                         
-                        if (item.ep.ep.ProductImage2!=null && item.ep.ep.ProductImage3 != null)
-                        {
-                            viewModel.Image2 = string.Format("data:image/png;base64,{0}",
-                                Convert.ToBase64String(item.ep.ep.ProductImage2));
-                            viewModel.Image3 = string.Format("data:image/png;base64,{0}",
-                                Convert.ToBase64String(item.ep.ep.ProductImage3));
-                        }
+                        //if (item.ep.ep.ProductImage2!=null && item.ep.ep.ProductImage3 != null)
+                        //{
+                        //    viewModel.Image2 = string.Format("data:image/png;base64,{0}",
+                        //        Convert.ToBase64String(item.ep.ep.ProductImage2));
+                        //    viewModel.Image3 = string.Format("data:image/png;base64,{0}",
+                        //        Convert.ToBase64String(item.ep.ep.ProductImage3));
+                        //}
 
 
 
