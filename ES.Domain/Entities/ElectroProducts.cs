@@ -13,14 +13,10 @@ namespace ES.Domain.Entities
         public int ID { get; set; }
 
         [Required]
-        [Display(Name = "Name")]
-        [StringLength(80)]
-        public string Name { get; set; }
-        [Required]
-        public ElectroCategories Category { get; set; }
+        public int CategoryId { get; set; }
         
         [Required]
-        public ElectroBrands Brand { get; set; }
+        public int BrandId { get; set; }
 
         [Required]
         [StringLength(80)]
@@ -42,5 +38,10 @@ namespace ES.Domain.Entities
         public string ProductImage2 { get; set; }
 
         public string ProductImage3 { get; set; }
+        [Required]
+        public ElectroCategories Category { get; set; }
+
+        [Required]
+        public ElectroBrands Brand { get; set; }
     }
 }

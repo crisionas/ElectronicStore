@@ -13,14 +13,10 @@ namespace ES.Domain.Entities
         public int ID { get; set; }
 
         [Required]
-        [Display(Name = "Name")]
-        [StringLength(80)]
-        public string Name { get; set; }
-        [Required]
-        public ApplianceCategories Category { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
-        public ApplianceBrands Brand { get; set; }
+        public int BrandId { get; set; }
 
         [Required]
         [StringLength(80)]
@@ -37,11 +33,15 @@ namespace ES.Domain.Entities
         [StringLength(2000)]
         public string Description { get; set; }
 
-        public string ProductImage1 { get; set; }
+        public byte[] ProductImage1 { get; set; }
 
-        public string ProductImage2 { get; set; }
+        public byte[] ProductImage2 { get; set; }
 
-        public string ProductImage3 { get; set; }
+        public byte[] ProductImage3 { get; set; }
+
+        public ApplianceCategories Category { get; set; }
+
+        public ApplianceBrands Brand { get; set; }
 
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ES.BusinessLayer.Migrations.Shop
+namespace ES.BusinessLayer.Migrations
 {
-    public partial class Shop : Migration
+    public partial class reinitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,13 +37,13 @@ namespace ES.BusinessLayer.Migrations.Shop
                 name: "ElectroBrands",
                 columns: table => new
                 {
-                    BrandID = table.Column<int>(type: "int", nullable: false)
+                    BrandId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ElectroBrands", x => x.BrandID);
+                    table.PrimaryKey("PK_ElectroBrands", x => x.BrandId);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,9 +65,8 @@ namespace ES.BusinessLayer.Migrations.Shop
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true),
-                    BrandId = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     Mark = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
@@ -84,13 +83,13 @@ namespace ES.BusinessLayer.Migrations.Shop
                         column: x => x.BrandId,
                         principalTable: "ApplianceBrands",
                         principalColumn: "BrandId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ApplianceProducts_ApplianceCategories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "ApplianceCategories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,32 +98,31 @@ namespace ES.BusinessLayer.Migrations.Shop
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true),
-                    BrandID = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     Mark = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
-                    ProductImage1 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    ProductImage2 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    ProductImage3 = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    ProductImage1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductImage2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductImage3 = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ElectroProducts", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ElectroProducts_ElectroBrands_BrandID",
-                        column: x => x.BrandID,
+                        name: "FK_ElectroProducts_ElectroBrands_BrandId",
+                        column: x => x.BrandId,
                         principalTable: "ElectroBrands",
-                        principalColumn: "BrandID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "BrandId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ElectroProducts_ElectroCategories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "ElectroCategories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -138,9 +136,9 @@ namespace ES.BusinessLayer.Migrations.Shop
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ElectroProducts_BrandID",
+                name: "IX_ElectroProducts_BrandId",
                 table: "ElectroProducts",
-                column: "BrandID");
+                column: "BrandId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ElectroProducts_CategoryId",

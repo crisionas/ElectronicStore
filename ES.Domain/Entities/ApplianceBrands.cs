@@ -15,5 +15,7 @@ namespace ES.Domain.Entities
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+
+        public ICollection<ApplianceProducts> Products { get; set; }
     }
 }

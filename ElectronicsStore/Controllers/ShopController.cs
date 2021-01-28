@@ -12,11 +12,24 @@ using Microsoft.Extensions.WebEncoders.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using ES.BusinessLayer.Interfaces;
+using ES.Domain.Models.Shop;
+using ES.BusinessLayer;
+using ES.Domain.Entities;
 
 namespace ElectronicsStore.Controllers
 {
     public class ShopController : Controller
     {
+        private IShop shop;
+
+        public ShopController()
+        {
+            var bl = new BusinessManager();
+            shop = bl.GetShopBL();
+        }
+
+        
         [AllowAnonymous]
         public ActionResult Electronic()
         {
@@ -39,7 +52,7 @@ namespace ElectronicsStore.Controllers
                 }
                 
             }
-            catch(Exception e)
+            catch
             { }
             
             return View();
@@ -49,20 +62,28 @@ namespace ElectronicsStore.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProduct(AddProdViewModel model, List<IFormFile> Images)
         {
-            var list = new List<byte[]>();
+            var list =new List<byte[]>();
             foreach (var item in Images)
             {
-                if(item.Length>0)
+                using (var stream = new MemoryStream())
                 {
-                    using (var stream = new MemoryStream())
-                    {
-                        await item.CopyToAsync(stream);
-                        list.Add(stream.ToArray());
-                    }
+                    await item.CopyToAsync(stream);
+                    list.Add(stream.ToArray());
                 }
             }
+            var data = new ProductsModel
+            {
+                Brand = model.Brand,
+                Description = model.Description,
+                Details = model.Details,
+                Category=model.Category,
+                Mark=model.Mark,
+                Images=list,
+                Price=model.Price,
+                Type=model.Type
+            };
 
-
+            var response = shop.AddProducts(data);
 
 
             return RedirectToAction("Index","Home");
@@ -109,12 +130,11 @@ namespace ElectronicsStore.Controllers
                 {
                     var productsList = await db.ElectroProducts
                         .Join(db.ElectroCategories, ep => ep.Category.CategoryId, ec => ec.CategoryId, (ep, ec) => new { ep, ec })
-                        .Join(db.ElectroBrands, ep => ep.ep.Brand.BrandID, eb => eb.BrandID, (ep, eb) => new { ep, eb }).ToListAsync();
+                        .Join(db.ElectroBrands, ep => ep.ep.Brand.BrandId, eb => eb.BrandId, (ep, eb) => new { ep, eb }).ToListAsync();
                     foreach (var item in productsList)
                     {
                         var viewModel = new ElectroProductsViewModel();
                         viewModel.id = item.ep.ep.ID;
-                        viewModel.Name = item.ep.ep.Name;
                         viewModel.Category = item.ep.ec.Name;
                         viewModel.Brand = item.eb.Name;
                         viewModel.Mark = item.ep.ep.Mark;

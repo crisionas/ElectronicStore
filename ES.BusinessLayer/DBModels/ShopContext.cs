@@ -31,5 +31,20 @@ namespace ES.BusinessLayer.DBModels
                 optionsBuilder.UseSqlServer("Server=localhost;Database=ElectronicStore;Trusted_Connection=True;");
             }
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<ApplianceCategories>()
+                .HasMany<ApplianceProducts>(ad => ad.Products);
+            modelBuilder.Entity<ApplianceBrands>()
+                .HasMany<ApplianceProducts>(ad => ad.Products);
+
+            modelBuilder.Entity<ElectroCategories>()
+                  .HasMany<ElectroProducts>(ad => ad.Products);
+            modelBuilder.Entity<ElectroBrands>()
+                .HasMany<ElectroProducts>(ad => ad.Products);
+
+
+        }
     }
 }

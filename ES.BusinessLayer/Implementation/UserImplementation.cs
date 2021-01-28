@@ -40,8 +40,6 @@ namespace ES.BusinessLayer.Implementation
                     return new URegisterResponse{ Status = true };
                 }
             }
-
-            return new URegisterResponse {Status = false, Message = "????"};
         }
 
         internal ULoginResponse LoginAction(ULoginData model)

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ES.BusinessLayer.Migrations.Shop
+namespace ES.BusinessLayer.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210126204258_UpdateDB")]
-    partial class UpdateDB
+    [Migration("20210128184616_reinitDB")]
+    partial class reinitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,10 +62,10 @@ namespace ES.BusinessLayer.Migrations.Shop
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("BrandId")
+                    b.Property<int>("BrandId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -82,24 +82,19 @@ namespace ES.BusinessLayer.Migrations.Shop
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
-
                     b.Property<string>("Price")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("ProductImage1")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ProductImage1")
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ProductImage2")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ProductImage2")
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ProductImage3")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ProductImage3")
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("ID");
 
@@ -112,7 +107,7 @@ namespace ES.BusinessLayer.Migrations.Shop
 
             modelBuilder.Entity("ES.Domain.Entities.ElectroBrands", b =>
                 {
-                    b.Property<int>("BrandID")
+                    b.Property<int>("BrandId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -122,7 +117,7 @@ namespace ES.BusinessLayer.Migrations.Shop
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("BrandID");
+                    b.HasKey("BrandId");
 
                     b.ToTable("ElectroBrands");
                 });
@@ -151,10 +146,10 @@ namespace ES.BusinessLayer.Migrations.Shop
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("BrandID")
+                    b.Property<int>("BrandId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -170,11 +165,6 @@ namespace ES.BusinessLayer.Migrations.Shop
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Price")
                         .IsRequired()
@@ -192,7 +182,7 @@ namespace ES.BusinessLayer.Migrations.Shop
 
                     b.HasKey("ID");
 
-                    b.HasIndex("BrandID");
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
 
@@ -202,12 +192,16 @@ namespace ES.BusinessLayer.Migrations.Shop
             modelBuilder.Entity("ES.Domain.Entities.ApplianceProducts", b =>
                 {
                     b.HasOne("ES.Domain.Entities.ApplianceBrands", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId");
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ES.Domain.Entities.ApplianceCategories", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Brand");
 
@@ -217,16 +211,40 @@ namespace ES.BusinessLayer.Migrations.Shop
             modelBuilder.Entity("ES.Domain.Entities.ElectroProducts", b =>
                 {
                     b.HasOne("ES.Domain.Entities.ElectroBrands", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandID");
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ES.Domain.Entities.ElectroCategories", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ES.Domain.Entities.ApplianceBrands", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ES.Domain.Entities.ApplianceCategories", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ES.Domain.Entities.ElectroBrands", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ES.Domain.Entities.ElectroCategories", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

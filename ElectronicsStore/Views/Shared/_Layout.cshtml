@@ -34,19 +34,18 @@
 
 </head>
 <body>
-
+    <partial></partial>
     <!-- top-header -->
-    @Html.Partial("_Header")
-
-    @Html.Partial("_Navigation")
+    <partial name="_Header.cshtml"/>
+    <partial name="_Navigation.cshtml"/>
 
 
     @RenderBody()
 
 
-    <footer class="border-top footer text-muted">
-        @Html.Partial("_Footer")
-    </footer>
+<footer class="border-top footer text-muted">
+    <partial name="_Footer.cshtml"/>
+</footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -55,22 +54,22 @@
     <!-- js-files -->
     <!-- jquery -->
     <script src="~/js/jquery-3.3.1.min.js"></script>
-<!-- //jquery -->
+    <!-- //jquery -->
 
-<script type="text/javascript">  
-    $(function() {
-        var loginElements = $('#loginModal');
-        $('button[data-toggle="modal"]').click(function(event) {
-            var url = $(this).data('url');
-            var decodeUrl = decodeURIComponent(url);
-            $.get(decodeUrl).done(function(data) {
-                loginElements.html(data);
-                loginElements.find('.modal').modal('show');
+    <script type="text/javascript">
+        $(function () {
+            var loginElements = $('#loginModal');
+            $('button[data-toggle="modal"]').click(function (event) {
+                var url = $(this).data('url');
+                var decodeUrl = decodeURIComponent(url);
+                $.get(decodeUrl).done(function (data) {
+                    loginElements.html(data);
+                    loginElements.find('.modal').modal('show');
+                })
             })
         })
-    })
-</script> 
-<!-- nav smooth scroll -->
+    </script>
+    <!-- nav smooth scroll -->
     <script>
         $(document).ready(function () {
             $(".dropdown").hover(
@@ -129,7 +128,6 @@
         });
     </script>
     <!-- //smooth-scrolling-of-move-up -->
-
     <!-- //js-files -->
 </body>
 </html>

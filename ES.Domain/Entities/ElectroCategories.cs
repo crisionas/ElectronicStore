@@ -17,5 +17,7 @@ namespace ES.Domain.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
+        public ICollection<ElectroProducts> Products { get; set; }
+
     }
 }

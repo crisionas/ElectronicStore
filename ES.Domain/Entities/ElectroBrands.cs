@@ -10,10 +10,11 @@ namespace ES.Domain.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BrandID { get; set; }
+        public int BrandId { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        public ICollection<ElectroProducts> Products { get; set; }
     }
 }
