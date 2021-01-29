@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ES.BusinessLayer.Migrations
 {
-    public partial class reinitDB : Migration
+    public partial class byteImg : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,9 +104,9 @@ namespace ES.BusinessLayer.Migrations
                     Mark = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
-                    ProductImage1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductImage2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductImage3 = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ProductImage1 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ProductImage2 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ProductImage3 = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {

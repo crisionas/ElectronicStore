@@ -169,14 +169,14 @@ namespace ES.BusinessLayer.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("ProductImage1")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ProductImage1")
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ProductImage2")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ProductImage2")
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ProductImage3")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ProductImage3")
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("ID");
 

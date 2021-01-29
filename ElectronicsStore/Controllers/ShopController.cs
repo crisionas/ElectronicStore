@@ -93,14 +93,14 @@ namespace ElectronicsStore.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<JsonResult> GetElectronicCategories()
+        public JsonResult GetElectronicCategories()
         {
             try
             {
                 using (var db = new ShopContext())
                 {
                     List<CategoryModel> modelCategory = new List<CategoryModel>();
-                    var categories = await db.ElectroCategories.ToListAsync();
+                    var categories = db.ElectroCategories.ToList();
                     foreach (var item in categories)
                     {
                         modelCategory.Add(new CategoryModel
@@ -121,16 +121,16 @@ namespace ElectronicsStore.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<JsonResult> GetElectronicProducts()
+        public JsonResult GetElectronicProducts()
         {
             try
             {
                 List<ElectroProductsViewModel> model = new List<ElectroProductsViewModel>();
                 using (var db = new ShopContext())
                 {
-                    var productsList = await db.ElectroProducts
-                        .Join(db.ElectroCategories, ep => ep.Category.CategoryId, ec => ec.CategoryId, (ep, ec) => new { ep, ec })
-                        .Join(db.ElectroBrands, ep => ep.ep.Brand.BrandId, eb => eb.BrandId, (ep, eb) => new { ep, eb }).ToListAsync();
+                    var productsList = db.ElectroProducts
+                        .Join(db.ElectroCategories, ep => ep.CategoryId, ec => ec.CategoryId, (ep, ec) => new { ep, ec })
+                        .Join(db.ElectroBrands, ep => ep.ep.BrandId, eb => eb.BrandId, (ep, eb) => new { ep, eb }).ToList();
                     foreach (var item in productsList)
                     {
                         var viewModel = new ElectroProductsViewModel();
@@ -141,19 +141,7 @@ namespace ElectronicsStore.Controllers
                         viewModel.Details = item.ep.ep.Details;
                         viewModel.Price = item.ep.ep.Price;
                         viewModel.Description = item.ep.ep.Description;
-                        if(item.ep.ep.ProductImage1 != null)
-                        //viewModel.Image1 = string.Format("data:image/png;base64,{0}",
-                        //    Convert.ToBase64String(item.ep.ep.ProductImage1));
-                        
-                        //if (item.ep.ep.ProductImage2!=null && item.ep.ep.ProductImage3 != null)
-                        //{
-                        //    viewModel.Image2 = string.Format("data:image/png;base64,{0}",
-                        //        Convert.ToBase64String(item.ep.ep.ProductImage2));
-                        //    viewModel.Image3 = string.Format("data:image/png;base64,{0}",
-                        //        Convert.ToBase64String(item.ep.ep.ProductImage3));
-                        //}
-
-
+                        viewModel.Image1 = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.ep.ep.ProductImage1));
 
                         model.Add(viewModel);
                     }

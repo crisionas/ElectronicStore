@@ -8,19 +8,24 @@
             <span>C</span>omputers
         </h3>
         <!-- //tittle heading -->
+
         <div class="row">
             <!-- product left -->
             <div class="agileinfo-ads-display col-lg-9">
-                <div  class="wrapper">
+                <div class="wrapper">
                     <!-- first section -->
                     <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
-                        <div id="productsInput" class="row">
+                        <div class="row">
+
+                            <div class="produseNoi-BaseBodyContainer">
+                            </div>
+
                         </div>
                     </div>
                     <!-- //first section -->
- 
+
                 </div>
-                </div>
+            </div>
             <!-- //product left -->
             <!-- product right -->
             <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
@@ -240,42 +245,183 @@
 
 
 
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            type: 'GET',
-            url: '@Url.Action("GetElectronicProducts", "Shop")',
-            success: function (prod) {
-                $.each(prod, function (i, src) {
-                    var text = `<div class="col-md-4 product-men">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item text-center">
-                                        <img src="${prod[i].productimage1}" width="170px" height="220px" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="single.html" class="link-product-add-cart">Quick View</a>
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetElectronicProducts", "Shop")',
+                success: function (prod) {
+                    $.each(prod, function (i, src) {
+                        var text = `<div id="${prod[i].id}" class="col-md-4 product-men mt-md-0 mt-5">
+                                    <div class="men-pro-item simpleCart_shelfItem">
+                                        <div class="men-thumb-item text-center">
+                                            <img src="${prod[i].image1}" width="170px" height="220px" alt="">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="item-info-product text-center border-top mt-4">
-                                        <h4 class="pt-1">
-                                            <a href="single.html">${prod[i].brand + " "+prod[i].mark + " " + prod[i].name}</a>
-                                        </h4>
-                                        <div class="info-product-price my-2">
-                                            <span class="item_price">${prod[i].price} EUR</span>
+                                        <div class="item-info-product text-center border-top mt-4">
+                                            <h4 class="pt-1">
+                                                <a href="single.html">${prod[i].brand + " "+prod[i].mark}</a>
+                                            </h4>
+                                            <div class="info-product-price my-2">
+                                                <span class="item_price">${prod[i].price} EUR</span>
+                                            </div>
+
                                         </div>
-
                                     </div>
-                                </div>
-                            </div>`;
+                                </div>`;
 
-                    $("#productsInput").html(text);
-                });
-            },
-            error: function (data) {
-                alert(data);
-            }
+                        $("#productsInput").html(text);
+                    });
+
+
+                },
+                error: function (data) {
+                    alert(data);
+                }
+            });
         });
-    });
+    </script> *@
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetElectronicProducts", "Shop")',
+                success: function (prod) {
+                    $.each(prod, function (i, src) {
+                        $("<div>").attr({
+                            'class': "product-wraper",
+                            'id': "Newprod_" + prod[i].id.toString() + ""
+                        }).appendTo(".produseNoi-BaseBodyContainer");
+
+                        $('<img />')
+                            .attr('src', "" + prod[i].image1 + "")
+                            .attr('class', "product-img")
+                            .appendTo($('#Newprod_' + prod[i].id.toString() + ''));
+
+                        $("<div>",
+                            {
+                                class: "product-titlul",
+                                text: "" + prod[i].brand + ""
+                            }).appendTo($('#Newprod_' + prod[i].id.toString() + ''));
+
+                        $("<div>",
+                            {
+                                class: "product-autor",
+                                text: "" + prod[i].mark + ""
+                            }).appendTo($('#Newprod_' + prod[i].id.toString() + ''));
+
+                        $("<div>",
+                            {
+                                class: "product-pret",
+                                text: "" + prod[i].price + " Lei"
+                            }).appendTo($('#Newprod_' + prod[i].id.toString() + ''));
+
+
+                        $("<button>",
+                            {
+                                class: "btn btn-info product-cumpara",
+                                name: "ButonulCumpara",
+                                id: prod[i].id.toString(), 
+                                text: "Cumpara"
+                            }).appendTo($('#Newprod_' + prod[i].id.toString() + ''));
+
+
+                    });
+
+
+                },
+                error: function (data) {
+                    alert(data);
+                }
+            });
+        });
 </script>
+
+
+<style type="text/css">
+    .baseBodyContainer {
+        width: 70%;
+        float: right;
+    }
+
+    .leftBodyContainer {
+        width: 27%;
+        float: left;
+        margin-right: 3%;
+        border-right: 2px;
+        border-right-color: gray;
+        border-style: dotted dashed double;
+    }
+
+    .baseBodyContainer .recomandari-BaseBodyContainer {
+        width: 100%;
+        height: 500px;
+        overflow-y: auto;
+        background: aqua;
+    }
+
+    .baseBodyContainer .produseNoi-BaseBodyContainer {
+        width: 100%;
+        height: 500px;
+        overflow-y: auto;
+        background: aqua;
+    }
+    /*.baseBodyContainer .pretPromotional-BaseBodyContainer {
+        width: 100%;
+        height: 500px;
+        overflow-y: auto;
+        background: aqua;
+    }*/
+</style>
+
+
+<style type="text/css">
+    .product-wraper {
+        width: 200px;
+        background-color: azure;
+        margin-left: 20px;
+        margin-top: 10px;
+        float: left;
+    }
+
+    .product-img {
+        width: 170px;
+        height: 220px;
+    }
+
+    .product-titlul {
+        width: 180px;
+        height: 40px;
+        margin-left: 5px;
+        margin-top: 5px;
+        font-style: italic;
+        font-size: 20px;
+    }
+
+    .product-autor {
+        width: 180px;
+        margin-left: 5px;
+        margin-top: 15px;
+        font-size: 15px;
+        text-align: right;
+        text-decoration: underline;
+    }
+
+    .product-pret {
+        width: 90px;
+        height: 25px;
+        margin-left: 5px;
+        margin-top: 5px;
+        font-size: 20px;
+        color: red;
+    }
+
+    .product-cumpara {
+        margin-left: 70px;
+    }
+</style>
