@@ -30,15 +30,8 @@
                             Home
                             <span class="sr-only">(current)</span>
                         </a>
-                    </li>@if (User.Identity.IsAuthenticated)
-                         {
-                             <li class="nav-item active mr-lg-2 mb-lg-0 mb-2">
-                                 <a class="nav-link" href="@Url.ActionLink("Electronic", "Shop")">
-                                     Shop
-                                     <span class="sr-only">(current)</span>
-                                 </a>
-                             </li>
-                         }
+                    </li>
+
                     <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Electronics
@@ -50,7 +43,7 @@
                                     <div class="col-sm-6 multi-gd-img">
                                         <ul class="multi-column-dropdown">
                                             <li>
-                                                <a href="product.html">All Mobile Phones</a>
+                                                <a href="@Url.ActionLink("Electronics","Shop")">All Mobile Phones</a>
                                             </li>
                                             <li>
                                                 <a href="product.html">All Mobile Accessories</a>
@@ -118,7 +111,7 @@
                                     <div class="col-sm-6 multi-gd-img">
                                         <ul class="multi-column-dropdown">
                                             <li>
-                                                <a href="product2.html">Televisions</a>
+                                                <a href="@Url.ActionLink("Appliances","Shop")">Televisions</a>
                                             </li>
                                             <li>
                                                 <a href="product2.html">Home Entertainment Systems</a>
@@ -184,28 +177,39 @@
                     <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
                         <a class="nav-link" href="about.html">About Us</a>
                     </li>
-                    <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
-                        <a class="nav-link" href="product.html">New Arrivals</a>
-                    </li>
+
                     <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pages
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="product.html">Product 1</a>
-                            <a class="dropdown-item" href="product2.html">Product 2</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="single.html">Single Product 1</a>
-                            <a class="dropdown-item" href="single2.html">Single Product 2</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="checkout.html">Checkout Page</a>
-                            <a class="dropdown-item" href="payment.html">Payment Page</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
-                    </li>
-                </ul>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administration
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="agile_inner_drop_nav_info p-4">
+                                    <div class="row">
+                                        <div class="col-sm-6 multi-gd-img">
+                                            <ul class="multi-column-dropdown">
+                                                <li>
+                                                    <a href="@Url.Action("AddProduct","Shop")">Add Product</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="product.html">Test</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
             </div>
         </nav>
     </div>

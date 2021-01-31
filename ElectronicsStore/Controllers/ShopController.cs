@@ -31,7 +31,13 @@ namespace ElectronicsStore.Controllers
 
         
         [AllowAnonymous]
-        public ActionResult Electronic()
+        public ActionResult Electronics()
+        {
+            return View();
+        }
+        
+        [AllowAnonymous]
+        public ActionResult Appliances()
         {
             return View();
         }
@@ -89,8 +95,6 @@ namespace ElectronicsStore.Controllers
             return RedirectToAction("Index","Home");
         }
         
-
-
         [HttpGet]
         [AllowAnonymous]
         public JsonResult GetElectronicCategories()
@@ -125,7 +129,7 @@ namespace ElectronicsStore.Controllers
         {
             try
             {
-                List<ElectroProductsViewModel> model = new List<ElectroProductsViewModel>();
+                List<ProductsViewModel> model = new List<ProductsViewModel>();
                 using (var db = new ShopContext())
                 {
                     var productsList = db.ElectroProducts
@@ -133,7 +137,7 @@ namespace ElectronicsStore.Controllers
                         .Join(db.ElectroBrands, ep => ep.ep.BrandId, eb => eb.BrandId, (ep, eb) => new { ep, eb }).ToList();
                     foreach (var item in productsList)
                     {
-                        var viewModel = new ElectroProductsViewModel();
+                        var viewModel = new ProductsViewModel();
                         viewModel.id = item.ep.ep.ID;
                         viewModel.Category = item.ep.ec.Name;
                         viewModel.Brand = item.eb.Name;
@@ -154,6 +158,41 @@ namespace ElectronicsStore.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult GetApplianceProducts()
+        {
+            List<ProductsViewModel> list = new List<ProductsViewModel>();
+
+            try
+            {
+                using (var db = new ShopContext())
+                {
+                    var applianceproducts = db.ApplianceProducts.Join(db.ApplianceCategories, d => d.CategoryId, m => m.CategoryId, (d, m) => new { d, m })
+                        .Join(db.ApplianceBrands, e => e.d.BrandId, b => b.BrandId, (e, b) => new { e, b }).ToList();
+                    foreach(var item in applianceproducts)
+                    {
+                        var model = new ProductsViewModel
+                        {
+                            id = item.e.d.BrandId,
+                            Category = item.e.m.Name,
+                            Brand=item.b.Name,
+                            Details=item.e.d.Details,
+                            Description=item.e.d.Description,
+                            Price=item.e.d.Price,
+                            Mark=item.e.d.Mark,
+                            Image1=String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.e.d.ProductImage1))
+                        };
+                        list.Add(model);
+                    }
+                }
+                return Json(list);
+            }
+            catch(Exception e)
+            {
+                return Json(e);
+            }
+        }
+        
 
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ES.BusinessLayer.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210128202112_byteImg")]
-    partial class byteImg
+    [Migration("20210131191903_initdb")]
+    partial class initdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
