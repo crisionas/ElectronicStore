@@ -42,10 +42,9 @@ namespace ElectronicsStore.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct()
         {
-
             try
             {
                 using (var db = new ShopContext())

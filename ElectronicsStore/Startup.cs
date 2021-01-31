@@ -12,6 +12,9 @@ using ES.BusinessLayer.DBModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ElectronicsStore
 {
@@ -31,9 +34,19 @@ namespace ElectronicsStore
                 .AddCookie(config =>
                 {
                     config.LoginPath = "/Auth/Login";
+                    config.AccessDeniedPath = "/Home";
                 });
+            services.AddAuthorization(config =>
+            {
+                var userAuthPolicyBuilder = new AuthorizationPolicyBuilder();
+                config.DefaultPolicy = userAuthPolicyBuilder
+                                    .RequireAuthenticatedUser()
+                                    .RequireClaim(ClaimTypes.Role)
+                                    .Build();
+            });
             services.AddControllersWithViews();
             services.AddDbContext<UserContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
